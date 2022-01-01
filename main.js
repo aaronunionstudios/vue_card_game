@@ -11,7 +11,7 @@ new Vue ({
         :players="players" 
         />
         <transition name="fade">
-        <hand :cards="testHand" v-if="!activeOverlay" />
+        <hand :cards="testHand" v-if="!activeOverlay" @card=play="testPlayCard" />
         </transition>
     </div>`,
 
@@ -45,6 +45,10 @@ new Vue ({
                 def: cards[randomId],
             }
         },
+        testPlayCard (card) {
+            const index = this .testHand.indexOf(card)
+            this.testHand.splice(index, 1)
+        }
     },
     created () {
         this.testHand = this.createTestHand ()
