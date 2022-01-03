@@ -11,10 +11,9 @@ new Vue ({
         :players="players" 
         />
         <transition name="fade">
-        <hand :cards="testHand" v-if="!activeOverlay" @card=play="testPlayCard" />
+        <hand :cards="testHand" />
         </transition>
     </div>`,
-
     mounted () {
         console.log(this.$data === state)
     },
@@ -31,8 +30,7 @@ new Vue ({
             const cards = []
             const ids = Object.keys(cards)
             for (let i = 0; i < 5; i++) {
-                console.log(ids)
-                cards.push(testDrawCard())
+                cards.push(this.testDrawCard())
             }
             return cards
         },
