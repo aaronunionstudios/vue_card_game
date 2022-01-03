@@ -10,8 +10,8 @@ new Vue ({
         :current-player-index="currentPlayerIndex" 
         :players="players" 
         />
-        <transition name="fade">
-        <hand :cards="testHand" />
+        <transition name="hand">
+        <card :def="testCard" @play="handlePlay" />
         </transition>
     </div>`,
     mounted () {
@@ -23,9 +23,6 @@ new Vue ({
         },
     },
     methods: {
-        handlePlay () {
-            console.log('You played a card!')
-        },
         createTestHand () {
             const cards = []
             const ids = Object.keys(cards)
@@ -46,7 +43,10 @@ new Vue ({
         testPlayCard (card) {
             const index = this .testHand.indexOf(card)
             this.testHand.splice(index, 1)
-        }
+        },
+        handlePlay () {
+            console.log('you played a card')
+        },
     },
     created () {
         this.testHand = this.createTestHand ()

@@ -27,14 +27,6 @@ Vue.component ('card', {
     methods: {
         play () {
             this.$emit('play')
-        },
+        }
     },
-})
-Vue.component ('hand', {
-    template: `<div class="hand">
-        <div class="wrapper">
-            <card v-for="card of cards" :def="card.def" />
-        </div>
-    </div>`,
-    props: ['cards'],
 })
