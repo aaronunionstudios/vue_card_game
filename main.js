@@ -10,8 +10,9 @@ new Vue ({
         :current-player-index="currentPlayerIndex" 
         :players="players" 
         />
-        <transition name="hand">
         <card :def="testCard" @play="handlePlay" />
+        <transition name="hand">
+        <hand :cards="testHand" v-if="!activeOverlay"/>
         </transition>
     </div>`,
     mounted () {

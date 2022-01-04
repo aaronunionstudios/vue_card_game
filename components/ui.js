@@ -30,3 +30,11 @@ Vue.component ('card', {
         }
     },
 })
+Vue.component('hand', {
+    template: `<div class="hand">
+    <div class="wrapper">
+    <card v-for="card of cards" :def="card.def" />
+    </div>
+    </div>`,
+    props: ['cards'],
+})
