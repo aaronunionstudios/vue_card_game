@@ -11,6 +11,9 @@ new Vue ({
         :players="players" 
         />
         <div class="world">
+        <div class="clouds">
+            <cloud v-for="index in 10" :type="(index - 1) % 5 + 1" />
+        </div>
             <castle v-for="(player, index) in players" :player="player" :index="index" />
             <div class="land" />
         </div>
