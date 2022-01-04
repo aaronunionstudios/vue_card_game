@@ -10,17 +10,24 @@ new Vue ({
         :current-player-index="currentPlayerIndex" 
         :players="players" 
         />
+        <div class="world">
+            <castle v-for="(player, index) in players" :player="player" :index="index" />
+            <div class="land" />
+        </div>
         <transition name="hand">
-        <hand :cards="testHand" v-if="!activeOverlay" @card-play="testPlayCard" />
+            <hand :cards="testHand" v-if="!activeOverlay" @card-play="testPlayCard" />
         </transition>
-        <overlay v-if="activeOverlay">
-            <overlay-content-player-turn
-                v-if="activeOverlay === 'player-turn'" :player="currentPlayer" />
-            <overlay-content-last-play
-                v-else-if="activeOverlay ==='last-play'" :opponent="currentOpponent" />
-            <overlay-content-game-over
-                v-else-if="activeOverlay === 'game-over'" :players="players" />
-        </overlay>
+        <transition name="fade">
+            <div class="overlay-background" v-if="activeOverlay" />
+        </transition>
+        <transition name="zoom">
+            <overlay v-if="activeOverlay" :key="activeOverlay">
+                <component :is="'overlay-content-' + activeOverlay"
+                :player="currentPlayer"
+                :opponent="currentOpponent"
+                :players="players" />
+            </overlay>
+        </transition>
     </div>`,
     mounted () {
         console.log(this.$data === state)
@@ -63,3 +70,10 @@ new Vue ({
 window.addEventListener('resize', () => {
     state.worldRatio = getWorldRatio ()
 })
+// Tween.js
+requestAnimationFrame(animate);
+
+function animate(time) {
+    requestAnimationFrame(animate);
+    TWEEN.update(time);
+  }

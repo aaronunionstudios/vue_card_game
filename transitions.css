@@ -29,3 +29,12 @@ transform: rotateX(90deg); }
    .hand-enter .card,
    .hand-leave-to .card {
 margin: 0 -100px; }
+.zoom-enter-active,
+.zoom-leave-active {
+    transition: opacity .3s, transform .3s;
+}
+.zoom-enter,
+.zoom-leave-to {
+    opacity: 0;
+    transform: scale(.7);
+}

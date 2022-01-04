@@ -68,6 +68,7 @@ function getWorldRatio () {
   }
   
   function getLastPlayedCard (player) {
+    debugger
     return cards[player.lastPlayedCardId]
   }
   
