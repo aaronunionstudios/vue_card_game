@@ -33,8 +33,68 @@ Vue.component ('card', {
 Vue.component('hand', {
     template: `<div class="hand">
     <div class="wrapper">
-    <card v-for="card of cards" :def="card.def" />
+    <card v-for="card of cards" :def="card.def" :key="card.uid" @play="handlePlay(card)" />
     </div>
     </div>`,
     props: ['cards'],
+    methods: {
+        handlePlay (card) {
+            this.$emit('card-play', card)
+        },
+    }
+})
+Vue.component('overlay', {
+    template:`<div class="overlay" @click="handleClick">
+    <div class="contnent">
+    <slot />
+    </div>
+    </div>`,
+    methods: {
+        handleClick() {
+            this.$emit('close')
+        },
+    }
+})
+Vue.component('overlay-content-player-turn', {
+    template: `<div>
+    <div class="big" v-if="player.skipTurn">{{player.name}},
+    <br>your turn is skipped!</div>
+    <div class="big" v-else>{{player.name}},<br>your turn has come!</div>
+    <div> Tap to continue</div>
+    </div>`,
+    props: ['player'],
+})
+Vue.component('overlay-content-last-play', {
+    template: `<div>
+    <div v-if="opponent.skippedTurn">{{opponent.name}} turn was skipped!</div>
+    <template v-else>
+    <div>{{opponent.name}} just played:</div>
+    <card :def="lastPlayedCard" />
+    </template>
+    </div>`,
+    props: ['opponent'],
+    computed: {
+        lastPlayedCard () {
+            return getLastPlayedCard(this.opponent)
+        },
+    },
+})
+Vue.component ('player-result', {
+    template: `<div class="player-result" :class="result">
+    <span class="name">{{player.name}}</span> is
+    <span class="result">{{result}}</span>
+    </div>`,
+    props: ['player'],
+    computed: {
+        result () {
+            return this.player.dead ? 'defeated' : 'victorious'
+        },
+    },
+})
+Vue.component ('overlay-content-game-over', {
+    template: `<div>
+    <div class="big">Game Over</div>
+    <player-result v-for="player in players" "player="player" />
+    </div>`,
+    props: ['players'],
 })
