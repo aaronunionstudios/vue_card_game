@@ -18,7 +18,7 @@ new Vue ({
             <div class="land" />
         </div>
         <transition name="hand">
-            <hand :cards="testHand" v-if="!activeOverlay" @card-play="testPlayCard" />
+            <hand :cards="currentHand" v-if="!activeOverlay" @card-play="testPlayCard" />
         </transition>
         <transition name="fade">
             <div class="overlay-background" v-if="activeOverlay" />
@@ -34,6 +34,7 @@ new Vue ({
     </div>`,
     mounted () {
         console.log(this.$data === state)
+        beginGame ()
     },
     computed: {
         testCard () {
@@ -62,12 +63,6 @@ new Vue ({
             const index = this .testHand.indexOf(card)
             this.testHand.splice(index, 1)
         },
-        // handlePlay () {
-        //     console.log('you played a card')
-        // },
-    },
-    created () {
-        this.testHand = this.createTestHand ()
     },
 })
 window.addEventListener('resize', () => {
@@ -80,3 +75,7 @@ function animate(time) {
     requestAnimationFrame(animate);
     TWEEN.update(time);
   }
+
+function beginGame () {
+    state.players.forEach(drawInitialHand)
+}

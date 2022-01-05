@@ -48,10 +48,16 @@ var state = {
   get currentOpponent () {
       return state.players[state.currentOpponentId]
   },
+  get currentHand () {
+      return state.currentPlayer.hand
+  },
 
 
   testHand: [],
   activeOverlay: null,
+
+  drawPile: pile,
+  discardPile: {},
 }
 
 new Vue ({
