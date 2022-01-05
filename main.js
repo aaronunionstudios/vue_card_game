@@ -84,7 +84,7 @@ function playCard(card) {
         currentPlayingCard = card
 
         // remove the card from player hand
-        const index = state.currentplayer.hand.indexOf(card)
+        const index = state.currentPlayer.hand.indexOf(card)
         state.currentPlayer.hand.splice(index, 1)
 
         //add the card to the discard pile
