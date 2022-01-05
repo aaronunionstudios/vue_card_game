@@ -89,7 +89,7 @@ Vue.component('cloud', {
     },
     methods: {
         setPosition (left, top) {
-            this.style.transform = 'translate(${left}px, ${top}px)'
+            this.style.transform = `translate(${left}px, ${top}px)`
         },
         initPosition () {
             const width = this .$el.clientWidth

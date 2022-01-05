@@ -52,7 +52,7 @@ var state = {
       return state.currentPlayer.hand
   },
 
-
+  canPlay: false,
   testHand: [],
   activeOverlay: null,
 
